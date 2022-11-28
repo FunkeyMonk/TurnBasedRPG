@@ -16,8 +16,8 @@ public class rpgTrial1{
 
     //HP Display function
     public static void hpDisplay(){
-        System.out.println("Your health is " + php + " and stamina is " + sp);
-        System.out.println("Enemy health is " + ehp);
+        System.out.println(name + "'s health is " + php + " and stamina is " + sp);
+        System.out.println("Enemy's health is " + ehp);
     }
     
     public static void main(String[] args){
@@ -125,10 +125,10 @@ public class rpgTrial1{
         
         //Win/Loss
         if(ehp == 0){
-            System.out.println("You win!");
+            System.out.println(name + " wins!");
         }
         else if (php == 0){
-            System.out.println("You lose!");
+            System.out.println(name + " loses!");
         }
 }
 }
