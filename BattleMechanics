@@ -8,6 +8,7 @@ public class rpgTrial1{
     static int eatk;
     static int maxBlock;
     static int block;
+    static int sp;
 
 
     //function not working for now
@@ -22,10 +23,9 @@ public class rpgTrial1{
         int php = 100;
         int ehp = 30;
         int patk = 10;
-        int eatk = 15;    
+        int eatk = 15;
+        int sp = 10;
         
-
-
 
         while(true){
             System.out.println("What is your name?");
@@ -50,22 +50,46 @@ public class rpgTrial1{
             int maxBlock = 15;
             int block = rand.nextInt(maxBlock);
 
-            System.out.println("Your health is " + php);
+            //Starting prompt
+            System.out.println("Your health is " + php + " and stamina is " + sp);
             System.out.println("Enemy health is " + ehp);
-            System.out.println("PTurn: Attack (1), Block(2)");
+            System.out.println("Player Turn:");
+            System.out.println("1 = Attack, "+ patk + " attack, -5 stamina");
+            System.out.println("2 = Block, 0-15 negated damage, +2 stamina");
+            System.out.println("3 = Rest, regain all stamina");
             String atk1 = in.nextLine();
+
+            //Attack effect
             if(atk1.equals("1")){
                 ehp = ehp - patk;
+                php = php - eatk;
+                sp = sp - 5;
+                if(sp < 0){
+                    sp = 0;
+                    ehp = ehp + patk;
+                    System.out.println("TOO TIRED TO ATTACK!");
+                }
             }
             System.out.println("Enemy turn");
+            
+            //Block effect
             if (atk1.equals("2")){
                 php = php - eatk + block;
                 System.out.print("Blocked " + block + " damage!");
+                sp = sp + 2;
+                if (sp > 10){
+                    sp = 10;
+                }
             }
-            else if (atk1.equals("1")){
+
+            //Rest effect
+            if (atk1.equals("3")){
                 php = php - eatk;
+                sp = 10;
             }
         }
+
+        //Win/Loss
         if(ehp == 0){
             System.out.println("You win!");
         }
