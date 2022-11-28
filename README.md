@@ -3,6 +3,4 @@ A small project for my CSP Performance Task
 
 Things to add:
 
-Different attacks.
-
-DONE Stamina bar that drains when using attacks, but is refilled on block.
+Fix code so it doesn't say "Enemy turn, enemy did 15 damage!" at the end of the code and says "name wins/loses!"
