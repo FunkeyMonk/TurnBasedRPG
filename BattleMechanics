@@ -2,36 +2,31 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class rpgTrial1{
-    static int php;
-    static int ehp;
-    static int patk;
-    static int eatk;
+    //rando variables
+    static int php = 100;
+    static int ehp = 30;
+    static int platk = 10;
+    static int phatk = 14;
+    static int eatk = 15;
     static int maxBlock;
     static int block;
-    static int sp;
+    static int sp = 10;
+    static String name;
 
 
-    //function not working for now
+    //HP Display function
     public static void hpDisplay(){
-        int php = 100;
-        int ehp = 30;
-        System.out.println("Your health is " + php);
+        System.out.println("Your health is " + php + " and stamina is " + sp);
         System.out.println("Enemy health is " + ehp);
     }
     
     public static void main(String[] args){
-        int php = 100;
-        int ehp = 30;
-        int patk = 10;
-        int eatk = 15;
-        int sp = 10;
-        
-
+        //Name
         while(true){
             System.out.println("What is your name?");
             Scanner in = new Scanner(System.in);
-            String a = in.nextLine();
-            System.out.print("Your name is " + a);
+            name = in.nextLine();
+            System.out.print("Your name is " + name);
             System.out.print(", is that correct?");
             System.out.print(" y/n");
             String b = in.nextLine();
@@ -51,44 +46,83 @@ public class rpgTrial1{
             int block = rand.nextInt(maxBlock);
 
             //Starting prompt
-            System.out.println("Your health is " + php + " and stamina is " + sp);
-            System.out.println("Enemy health is " + ehp);
-            System.out.println("Player Turn:");
-            System.out.println("1 = Attack, "+ patk + " attack, -5 stamina");
-            System.out.println("2 = Block, 0-15 negated damage, +2 stamina");
-            System.out.println("3 = Rest, regain all stamina");
+            hpDisplay();
+            System.out.println(name + "'s Turn:");
+            //Attack explanations
+            System.out.println("1 = Light Attack, "+ platk + " damage, -5 stamina");
+            System.out.println("2 = Heavy Attack, " + phatk + " damage, - 10 stamina");
+            System.out.println("3 = Block, 0-15 blocked damage, +2 stamina");
+            System.out.println("4 = Rest, regain all stamina");
             String atk1 = in.nextLine();
 
             //Attack effect
             if(atk1.equals("1")){
-                ehp = ehp - patk;
+                ehp = ehp - platk;
                 php = php - eatk;
                 sp = sp - 5;
+                if (sp == 0){
+                    System.out.println("Block or rest to regain stamina!");
+                }
                 if(sp < 0){
                     sp = 0;
-                    ehp = ehp + patk;
+                    ehp = ehp + platk;
                     System.out.println("TOO TIRED TO ATTACK!");
                 }
+                if (ehp == 0 || php == 0){
+                    break;
+                }
+                System.out.println("Enemy turn");
+                System.out.println("Enemy did " + eatk + " damage!");
             }
-            System.out.println("Enemy turn");
+
+            if(atk1.equals("2")){
+                ehp = ehp - phatk;
+                php = php - eatk;
+                sp = sp - 10;
+                if (sp == 0){
+                    System.out.println("Block or rest to regain stamina!");
+                }
+                if(sp < 0){
+                    sp = 0;
+                    ehp = ehp + platk;
+                    System.out.println("TOO TIRED TO ATTACK!");
+                }
+                if (ehp == 0 || php == 0){
+                    break;
+                }
+                System.out.println("Enemy turn");
+                System.out.println("Enemy did " + eatk + " damage!");
+            }
+            
             
             //Block effect
-            if (atk1.equals("2")){
+            if (atk1.equals("3")){
                 php = php - eatk + block;
                 System.out.print("Blocked " + block + " damage!");
+                int blockedDamage = eatk - block;
                 sp = sp + 2;
                 if (sp > 10){
                     sp = 10;
                 }
+                if (ehp == 0 || php == 0){
+                    break;
+                }
+                System.out.println("Enemy turn");
+                System.out.println("Enemy did " + blockedDamage + " damage!");
             }
 
             //Rest effect
-            if (atk1.equals("3")){
+            if (atk1.equals("4")){
                 php = php - eatk;
                 sp = 10;
+                if (ehp == 0 || php == 0){
+                    break;
+                }
+                System.out.println("Enemy turn");
+                System.out.println("Enemy did " + eatk + " damage!");
             }
         }
-
+        
         //Win/Loss
         if(ehp == 0){
             System.out.println("You win!");
