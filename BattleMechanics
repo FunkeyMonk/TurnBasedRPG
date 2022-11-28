@@ -1,0 +1,76 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class rpgTrial1{
+    static int php;
+    static int ehp;
+    static int patk;
+    static int eatk;
+    static int maxBlock;
+    static int block;
+
+
+    //function not working for now
+    public static void hpDisplay(){
+        int php = 100;
+        int ehp = 30;
+        System.out.println("Your health is " + php);
+        System.out.println("Enemy health is " + ehp);
+    }
+    
+    public static void main(String[] args){
+        int php = 100;
+        int ehp = 30;
+        int patk = 10;
+        int eatk = 15;    
+        
+
+
+
+        while(true){
+            System.out.println("What is your name?");
+            Scanner in = new Scanner(System.in);
+            String a = in.nextLine();
+            System.out.print("Your name is " + a);
+            System.out.print(", is that correct?");
+            System.out.print(" y/n");
+            String b = in.nextLine();
+            if(b.equals("y")){
+                break;
+        }
+        }
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Welcome to RPG!");
+        System.out.println("Prepare for battle...");
+
+        while(php > 0 && ehp > 0){        
+            //Fixing block
+            Random rand = new Random();
+            int maxBlock = 15;
+            int block = rand.nextInt(maxBlock);
+
+            System.out.println("Your health is " + php);
+            System.out.println("Enemy health is " + ehp);
+            System.out.println("PTurn: Attack (1), Block(2)");
+            String atk1 = in.nextLine();
+            if(atk1.equals("1")){
+                ehp = ehp - patk;
+            }
+            System.out.println("Enemy turn");
+            if (atk1.equals("2")){
+                php = php - eatk + block;
+                System.out.print("Blocked " + block + " damage!");
+            }
+            else if (atk1.equals("1")){
+                php = php - eatk;
+            }
+        }
+        if(ehp == 0){
+            System.out.println("You win!");
+        }
+        else if (php == 0){
+            System.out.println("You lose!");
+        }
+}
+}
