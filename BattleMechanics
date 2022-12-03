@@ -19,6 +19,20 @@ public class rpgTrial1{
         System.out.println(name + "'s health is " + php + " and stamina is " + sp);
         System.out.println("Enemy's health is " + ehp);
     }
+
+    //Win/loss function
+    public static void winloss(){
+        if(php > 0 && ehp > 0){
+            System.out.println("Enemy turn");
+            System.out.println("Enemy did " + eatk + " damage!");
+            }
+        else if (ehp <= 0){
+            System.out.println(name + " wins!");
+        }
+        else if (php <= 0){
+            System.out.println(name + " loses!");
+        }
+    }
     
     public static void main(String[] args){
         //Name
@@ -36,7 +50,7 @@ public class rpgTrial1{
         }
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Welcome to RPG!");
+        System.out.println("Welcome to RPG "+ name + "!");
         System.out.println("Prepare for battle...");
 
         while(php > 0 && ehp > 0){        
@@ -58,7 +72,16 @@ public class rpgTrial1{
             //Attack effect
             if(atk1.equals("1")){
                 ehp = ehp - platk;
+                if(ehp<=0){
+                    ehp = 0;
+                }
+
                 php = php - eatk;
+                if(php<=0){
+                    php=0;
+                }
+
+                winloss();
                 sp = sp - 5;
                 if (sp == 0){
                     System.out.println("Block or rest to regain stamina!");
@@ -68,17 +91,16 @@ public class rpgTrial1{
                     ehp = ehp + platk;
                     System.out.println("TOO TIRED TO ATTACK!");
                 }
-                if (ehp == 0 || php == 0){
-                    break;
-                }
-                System.out.println("Enemy turn");
-                System.out.println("Enemy did " + eatk + " damage!");
+
             }
 
             if(atk1.equals("2")){
                 ehp = ehp - phatk;
                 php = php - eatk;
                 sp = sp - 10;
+
+                winloss();
+
                 if (sp == 0){
                     System.out.println("Block or rest to regain stamina!");
                 }
@@ -87,9 +109,7 @@ public class rpgTrial1{
                     ehp = ehp + platk;
                     System.out.println("TOO TIRED TO ATTACK!");
                 }
-                if (ehp == 0 || php == 0){
-                    break;
-                }
+
                 System.out.println("Enemy turn");
                 System.out.println("Enemy did " + eatk + " damage!");
             }
@@ -100,35 +120,36 @@ public class rpgTrial1{
                 php = php - eatk + block;
                 System.out.print("Blocked " + block + " damage!");
                 int blockedDamage = eatk - block;
+                
+                winloss();
+
                 sp = sp + 2;
                 if (sp > 10){
                     sp = 10;
                 }
-                if (ehp == 0 || php == 0){
-                    break;
-                }
+
                 System.out.println("Enemy turn");
                 System.out.println("Enemy did " + blockedDamage + " damage!");
+
             }
 
             //Rest effect
             if (atk1.equals("4")){
                 php = php - eatk;
                 sp = 10;
-                if (ehp == 0 || php == 0){
-                    break;
-                }
+
+                winloss();
+
                 System.out.println("Enemy turn");
                 System.out.println("Enemy did " + eatk + " damage!");
+
+            }
+
+            //cheat code
+            if (atk1.equals("flcl")){
+                ehp = 0;                
+                winloss();
             }
         }
-        
-        //Win/Loss
-        if(ehp == 0){
-            System.out.println(name + " wins!");
-        }
-        else if (php == 0){
-            System.out.println(name + " loses!");
-        }
-}
+    }
 }
